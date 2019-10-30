@@ -1,11 +1,12 @@
 {-# LANGUAGE FlexibleInstances
            , MultiParamTypeClasses
+           , KindSignatures
 #-}
 module Sphere where
 
 import Object
 
-data Sphere p a = Sphere a
+data Sphere (p :: * -> *) a = Sphere a
 
-instance (Num a, Position p a) => Object (Sphere (p a)) p a where
+instance (Position p) => Object (Sphere p) p where
   mindist (Sphere r) b = distance origin b - r

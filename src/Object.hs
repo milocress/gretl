@@ -1,25 +1,25 @@
 {-# LANGUAGE MultiParamTypeClasses
            , FlexibleInstances
            , ConstraintKinds
+           , KindSignatures
 #-}
 
 module Object ( Marchable, marchPath
               , Object, mindist
               , Position, distance, origin
               , Direction, extend, magnitude
-              , PosDir, move, direction
-              , Spatial
+              , Spatial, move, direction
               ) where
 
 import Direction
 
-class Object o p a where
-  mindist  :: o a -> p a -> a
+class Object o p where
+  mindist  :: (Floating a) => o a -> p a -> a
 
-instance (Position p a) => Object p p a where
+instance (Position p) => Object p p where
   mindist a b = distance a b
 
-type Marchable o p d a = (Ord a, Spatial p d a, Object o p a)
+type Marchable o p d a = (Floating a, Ord a, Spatial p d, Object o p)
 
 {-# INLINE marchPath #-}
 marchPath :: (Marchable o p d a) => p a -> d a -> o a -> a -> a -> (Maybe (p a))

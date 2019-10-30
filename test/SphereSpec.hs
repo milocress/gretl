@@ -20,7 +20,7 @@ spec = do
       isJust (marchPath (b + offset) dir s mn mx) `shouldBe` True
 
     where
-      s = Sphere r :: Sphere (V3 Double) Double
+      s = Sphere r :: Sphere V3 Double
       r = 3 :: Double
       b = V3 5 5 5
       offset = V3 0.1 0.1 0.1
