@@ -3,7 +3,7 @@
 
 module Main where
 
-import Direction
+import Spatial
 import Linear.V3
 
 main :: IO ()

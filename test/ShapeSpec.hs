@@ -1,10 +1,10 @@
-module SphereSpec (spec) where
+module ShapeSpec (spec) where
 
 import Test.Hspec
 
 import Linear.V3 (V3(..))
 import Linear.Metric (normalize)
-import Sphere (Sphere(..))
+import Shapes (Sphere(..))
 import Object (mindist, distance, direction, marchPath, origin)
 
 import Data.Maybe (isJust)

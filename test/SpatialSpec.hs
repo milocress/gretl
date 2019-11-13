@@ -1,8 +1,8 @@
-module DirectionSpec (spec) where
+module SpatialSpec (spec) where
 
 import Test.Hspec
 
-import Direction
+import Spatial
 import Linear.V3
 import Linear.Metric (norm)
 
