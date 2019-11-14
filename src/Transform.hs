@@ -12,6 +12,7 @@ Stability   : pre-experimental
 -}
 module Transform ( Transform, transform, inverse
                  , TransformedObject (..)
+                 , TransformMatrix (..)
                  ) where
 
 import Object
