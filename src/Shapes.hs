@@ -24,7 +24,7 @@ import Object
 - a coordinate system @p@
 - a measuring system @a@
 -}
-data Sphere (p :: * -> *) a
+newtype Sphere (p :: * -> *) a
   -- | The constructor for sphere takes a radius value.
   = Sphere a
 
@@ -32,10 +32,10 @@ instance (Position p) => Object (Sphere p) p where
   mindist (Sphere r) b = distance origin b - r
 
 {-| Defines a hyperplane in the coordinate system p -}
-data Plane (p :: * -> *) (d :: * -> *) a
+newtype Plane (p :: * -> *) (d :: * -> *) a
   -- | Takes the direction of the \"normal vector\" as an argument
   -- this is in quotes because @d@ is a generalized abstraction of the normal vector.
   = Plane (d a)
 
 instance (Spatial p d) => Object (Plane p d) p where
-  mindist (Plane d) = abs . distance origin . (project d)
+  mindist (Plane d) = abs . distance origin . project d

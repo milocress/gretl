@@ -51,7 +51,7 @@ type Marchable o p d a = (Floating a, Ord a, Spatial p d, Object o p)
 -- 'Object' instances together.
 data OList p a = forall o. Object o p => OList [o a]
 instance Object (OList p) p where
-  mindist (OList os) p = minimum $ (flip mindist p) <$> os
+  mindist (OList os) p = minimum $ (`mindist` p) <$> os
 
 -- | Uses the raymarching algorithm to find the point of collision
 -- between an object and a point in a given direction.
@@ -64,12 +64,11 @@ marchPath :: (Marchable o p d a)
   -> Maybe (p a) -- ^ @Just@ Location of collision or @Nothing@ if no
   -- collision occurs.
 marchPath point dir obj mn mx = marchPath' dir where
-  marchPath' d = if md < mn
-    then Just $ point'
-    else if md > mx
-         then Nothing
-         else marchPath' d' where
-    md = mindist obj point'
-    point' = point `move` d
-    d' = extend d md
+  marchPath' d
+    | md < mn = Just point'
+    | md > mx = Nothing
+    | otherwise = marchPath' d'
+    where md = mindist obj point'
+          point' = point `move` d
+          d' = extend d md
 {-# INLINE marchPath #-}

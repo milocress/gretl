@@ -46,5 +46,5 @@ instance (Transform t p, Object o p) => Object (TransformedObject t o) p where
 newtype TransformMatrix a = Mat (M44 a)
 instance Transform TransformMatrix V3 where
   transform (Mat m) (V3 x y z) = (/ w) <$> V3 tx ty tz where
-    V4 tx ty tz w = m !* (V4 x y z 1)
-  inverse   (Mat m) p = transform (Mat $ inv44 m) p
+    V4 tx ty tz w = m !* V4 x y z 1
+  inverse   (Mat m) = transform (Mat $ inv44 m)

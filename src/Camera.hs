@@ -25,6 +25,7 @@ class (Transform t p) => Camera t p where
   toClip :: (Floating a) => CameraInfo p a -> t a
 
 instance Camera TransformMatrix V3 where
-  toClip (CameraInfo{..}) = Mat $ case cameraMaybeFar of
+  toClip CameraInfo{..} = Mat $ case cameraMaybeFar of
     Nothing  -> infinitePerspective cameraFOV cameraAspect cameraNear
     Just cameraFar -> perspective cameraFOV cameraAspect cameraNear cameraFar
+
