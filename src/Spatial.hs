@@ -17,9 +17,6 @@ module Spatial ( Position, distance, origin
                , Spatial, move, direction, project
                ) where
 
-import Linear.V3 (V3(..))
-import qualified Linear.Metric as L (norm, distance, project)
-
 -- | Abstract notion of a direction.
 class Direction d where
   -- | Extend a path in a given direction by a given amount
@@ -50,18 +47,3 @@ class (Position p, Direction d) => Spatial p d where
   direction :: (Num a) => p a -> p a -> d a
   -- | \"Snaps\" a point to a given axis, extended from the origin.
   project   :: (Fractional a) => d a -> p a -> p a
-
-instance Direction V3 where
-  extend d a = (* ((l + a) / l)) <$> d where
-    l = L.norm d
-  magnitude = L.norm
-  negated = negate
-
-instance Position V3 where
-  distance = L.distance
-  origin = V3 0 0 0
-
-instance Spatial V3 V3 where
-  move = (+)
-  direction = (-)
-  project = L.project
